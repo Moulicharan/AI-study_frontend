@@ -34,7 +34,7 @@ npm run dev
 
 ## 2. Problem Understanding
 The goal was to build a full-stack application that leverages Generative AI to create a dynamic quiz experience.
-- **Core Challenge**: Generating consistent, structured data (JSON) from an LLM for both questions and feedback.
+- **Core Challenge**: Generating consistent, structured data (JSON) from an LLM(used gemini flash 2.0) for both questions and feedback.
 - **User Experience**: The app needs to handle asynchronous AI operations (loading states) gracefully and provide immediate, meaningful feedback to the user.
 - **Assumptions**:
     - The user has a valid internet connection for API calls.
