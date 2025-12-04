@@ -45,20 +45,69 @@ The goal was to build a full-stack application that leverages Generative AI to c
 
 ## 3. AI Prompts & Iterations
 
-### Refined Prompts & Solutions
-I switched to `gemini-2.0-flash` for better speed and reliability. I also implemented regex cleaning to handle Markdown formatting.
+## Prompts & Refinements
 
-**Question Generation Prompt:**
-> "Generate 5 multiple-choice questions about "{topic}". Return the response in the following JSON format ONLY: { "questions": [...] } Ensure the JSON is valid and strictly follows this schema."
+The core of this application relies on carefully crafted prompts to the Gemini API. Here are the prompts used and the refinements applied to ensure reliable JSON output.
 
-**Feedback Generation Prompt:**
-> "The user took a quiz on "{topic}"... Here are the questions and the user's answers... Generate a JSON response with: 1. "overallFeedback"... 2. "questionFeedback": An array of objects... Return the response in the following JSON format ONLY..."
+### 1. Question Generation Prompt
+**Goal:** Generate 5 multiple-choice questions for a specific topic.
 
-**Iteration on Feedback**:
-- *v1*: Only generated a generic summary based on the score.
-- *v2 (Current)*: Passes the full list of questions and user answers to the AI to generate specific explanations for *why* an answer was correct or incorrect.
+**Prompt:**
+```text
+Generate 5 multiple-choice questions about "${topic}".
+Return the response in the following JSON format ONLY:
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Question text",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correctIndex": 0 // 0-3 index of correct answer
+    }
+  ]
+}
+Ensure the JSON is valid and strictly follows this schema. Do not include markdown code blocks.
+```
 
----
+**Refinements:**
+- **JSON Schema Enforcement:** Explicitly requested a strict JSON structure to ensure the backend can parse the response reliably.
+- **Markdown Cleanup:** Added post-processing logic in the backend to remove any markdown code blocks (```json ... ```) that the model might include despite instructions.
+
+### 2. Feedback Generation Prompt
+**Goal:** Provide detailed feedback on the user's quiz performance, including explanations for each question.
+
+**Prompt:**
+```text
+The user took a quiz on "${topic}" and scored ${score} out of ${total}.
+
+Here are the questions and the user's answers (index):
+${JSON.stringify(questionsAndAnswers)}
+
+Generate a JSON response with:
+1. "overallFeedback": A brief encouraging message.
+2. "questionFeedback": An array of objects for each question with:
+    - "questionId": The id of the question.
+    - "status": "correct" or "incorrect".
+    - "explanation": A brief explanation of the correct answer and why the user was right or wrong.
+
+Return the response in the following JSON format ONLY:
+{
+  "overallFeedback": "string",
+  "questionFeedback": [
+    {
+      "questionId": 1,
+      "status": "correct",
+      "explanation": "string"
+    }
+  ]
+}
+Ensure the JSON is valid and strictly follows this schema. Do not include markdown code blocks.
+```
+
+**Refinements:**
+- **Contextual Input:** Passed the full list of questions, correct answers, and user's selected answers to allow the AI to generate specific explanations.
+- **Structured Output:** Defined a clear schema for `overallFeedback` and `questionFeedback` to easily display them on the frontend.
+
 
 ## 4. Architecture & Code Structure
 
