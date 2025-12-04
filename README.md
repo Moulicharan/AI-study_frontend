@@ -109,22 +109,25 @@ Ensure the JSON is valid and strictly follows this schema. Do not include markdo
 - **Structured Output:** Defined a clear schema for `overallFeedback` and `questionFeedback` to easily display them on the frontend.
 
 
-## 4. Architecture & Code Structure
+## 4. Architecture & State Management
 
 ### Frontend (React + Vite)
-- **`App.jsx`**: Manages the main view switching based on `quizStatus`.
-- **`context/QuizContext.jsx`**: Uses React Context + useReducer to manage global state (questions, answers, score, loading status). This avoids prop drilling.
-- **Screens**:
-    - `TopicSelectionScreen.jsx`: Custom input field and suggestion chips.
-    - `QuizScreen.jsx`: Displays questions one by one with a progress bar.
-    - `ResultScreen.jsx`: Displays score and renders the detailed AI feedback.
-- **`api/api.js`**: Centralized service for backend API calls.
+- **State Management:** Uses the **Context API** (`QuizContext`) to manage global application state. This avoids prop drilling and keeps the state accessible across different screens (Topic Selection, Quiz, Results).
+    - **Key State Variables:** `topic`, `questions`, `currentQuestionIndex`, `answers`, `score`, `feedback`, `loading`, `error`.
+    - **Reducer Pattern:** A `quizReducer` handles complex state transitions (e.g., `SET_QUESTIONS`, `ANSWER_QUESTION`, `FINISH_QUIZ`).
+- **Styling:** Vanilla CSS (`index.css`) with a focus on a clean, modern, and responsive design.
+- **Routing:** Conditional rendering based on `quizStatus` ('idle', 'loading', 'active', 'completed') within `App.jsx`.
 
 ### Backend (Node.js + Express)
-- **`server.js`**: Entry point.
-- **`app.js`**: Express app setup and middleware.
-- **`routes/quizRoutes.js`**: API endpoints (`/generate-questions`, `/generate-feedback`).
-- **`services/aiService.js`**: Handles all interactions with the Google Gemini API. It encapsulates the prompt logic and error handling, keeping the routes clean.
+- **API Design:** RESTful endpoints.
+    - `POST /api/generate-questions`: Accepts a topic and returns generated questions.
+    - `POST /api/generate-feedback`: Accepts quiz results and returns AI feedback.
+- **Service Layer:** `aiService.js` encapsulates all interactions with the Google Gemini API, keeping controllers clean.
+- **Validation:** Basic validation to ensure required data is present before calling the AI service.
+
+### AI Integration
+- **SDK:** Uses `@google/generative-ai` to interact with the Gemini 2.0 Flash model.
+- **Model:** `gemini-2.0-flash` chosen for its speed and efficiency in generating structured text.
 
 ## demo screen shots 
 <img width="940" height="462" alt="image" src="https://github.com/user-attachments/assets/1f69b964-9c28-4dbc-a546-a652d8b8d9d2" />
