@@ -138,4 +138,13 @@ Ensure the JSON is valid and strictly follows this schema. Do not include markdo
 
 <img width="2524" height="1266" alt="image" src="https://github.com/user-attachments/assets/28fd3c09-62e9-4f7a-9b6d-019b7b862850" />
 
+## Known Issues & Improvements
+
+-   **API Rate Limits:** The application depends on the Gemini API free tier, which has rate limits. Heavy usage might result in errors.
+-   **Markdown Parsing:** While we strip markdown blocks, occasionally the model might return malformed JSON in edge cases.
+-   **Future Improvements:**
+    -   Add user authentication to save quiz history.
+    -   Implement a "Retry" mechanism for failed API calls.
+    -   Add more question types (True/False, Fill in the blank).
+
 
