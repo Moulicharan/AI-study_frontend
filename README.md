@@ -84,6 +84,6 @@ I switched to `gemini-2.0-flash` for better speed and reliability. I also implem
 
 <img width="940" height="470" alt="image" src="https://github.com/user-attachments/assets/19d3d88b-80e4-45cd-87f7-629c777e3e17" />
 
-<img width="940" height="471" alt="image" src="https://github.com/user-attachments/assets/61d7e826-e3a3-49e9-8253-c1600ea414cd" />
+<img width="2524" height="1266" alt="image" src="https://github.com/user-attachments/assets/28fd3c09-62e9-4f7a-9b6d-019b7b862850" />
 
 
