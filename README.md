@@ -76,3 +76,14 @@ I switched to `gemini-2.0-flash` for better speed and reliability. I also implem
 - **`app.js`**: Express app setup and middleware.
 - **`routes/quizRoutes.js`**: API endpoints (`/generate-questions`, `/generate-feedback`).
 - **`services/aiService.js`**: Handles all interactions with the Google Gemini API. It encapsulates the prompt logic and error handling, keeping the routes clean.
+
+## demo screen shots 
+<img width="940" height="462" alt="image" src="https://github.com/user-attachments/assets/1f69b964-9c28-4dbc-a546-a652d8b8d9d2" />
+
+<img width="940" height="463" alt="image" src="https://github.com/user-attachments/assets/647dcf7f-f644-48cf-9027-6e1d98fe66de" />
+
+<img width="940" height="470" alt="image" src="https://github.com/user-attachments/assets/19d3d88b-80e4-45cd-87f7-629c777e3e17" />
+
+<img width="940" height="471" alt="image" src="https://github.com/user-attachments/assets/61d7e826-e3a3-49e9-8253-c1600ea414cd" />
+
+
